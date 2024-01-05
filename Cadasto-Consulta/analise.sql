@@ -1,0 +1,1 @@
+CREATE TABLE `cadastro`.`cadastro` ( `id` INT NOT NULL AUTO_INCREMENT ,  `codigo` VARCHAR(10) NOT NULL ,  `descricao` VARCHAR(100) NOT NULL ,  `valor` VARCHAR(8) NOT NULL ,  `unidade` ENUM('mg','g','Kg','cm','m') NOT NULL ,  `fazparte` ENUM('Sim','Não') NOT NULL DEFAULT 'Sim' ,    PRIMARY KEY  (`id`)) ENGINE = InnoDB;
