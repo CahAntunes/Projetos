@@ -4,17 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contato</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="style.css">
+    <title>Contato</title>
 </head>
+
 <body>
     <h1>Contato</h1>
-    <form action="https://formsubmit.co/your@email.com" method="POST">
-        
+    <form action="contato.php" method="POST">
+
         <input type="text" name="name" placeholder="Digite seu nome" required>
         <input type="email" name="email" placeholder="Digite seu email" required>
+        <input type="text" name="telefone" placeholder="Digite seu telefone" required>
 
-        <textarea  cols="30" rows="10" name="message" placeholder="Digite sua mensagem" required></textarea>
+        <textarea cols="30" rows="10" name="message" placeholder="Digite sua mensagem" required></textarea>
 
         <button type="submit">Enviar</button>
 
@@ -22,5 +25,6 @@
         <input type="text" name="_honey" style="display:none"> <!--Evita que o e-mail vá parar no span-->
         <input type="hidden" name="_captcha" value="false"> <!--desabilitar o captcha depois que enviar-->
     </form>
+
 </body>
 </html>
