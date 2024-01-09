@@ -39,6 +39,7 @@ section {
     background-color: #fff;
     box-sizing: border-box;
     padding-left: 10px;
+    overflow: auto;
 
 }
 
@@ -74,10 +75,10 @@ ul.menu li {
     margin-bottom: 10px;
 }
 
-.article {
-    margin: 100%;
+article {
+    width: 100%;
     box-sizing: border-box;
     padding: 10px;
-    background-color: #4583eb;
+    background-color: #d6d5d5;
     margin-bottom: 5px;
 }

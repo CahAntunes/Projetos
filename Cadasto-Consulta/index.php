@@ -1,3 +1,26 @@
+<?php
+
+if (!empty($_POST)) {
+    include_once("conexao.php");
+
+    $codigo = $_POST['codigo'];
+    $nome = $_POST['nome'];
+    $descricao = $_POST['descricao'];
+    $valor = $_POST['valor'];
+    $unidade = $_POST['unidade'];
+    $venda = $_POST['venda'];
+    $fazparte = $_POST['fazparte'];
+
+    $sql = "insert ignore into produtos (codigo, nome, descricao, valor, unidade, venda, fazparte) values ('$codigo', '$nome', '$descricao', '$valor', '$unidade', '$venda','$fazparte')";
+    $salvar = mysqli_query($conexao, $sql);
+
+    $linhas = mysqli_affected_rows($conexao);
+
+    mysqli_close($conexao);
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -19,7 +42,7 @@
             <h1>Cadastro de Produtos</h1>
             <hr><br><br>
 
-            <form method="post" action="processa.php">
+            <form method="post" action="index.php">
                 <input type="submit" value="Salvar" class="btn">
                 <input type="reset" value="Limpar" class="btn">
                 <br><br>
@@ -34,7 +57,7 @@
                 <input type="text" name="descricao" class="campo" maxlength="100" placeholder="Digite o código do produto" required autofocus><br><br>
 
                 Valor(un)<br>
-                <input type="text" name="valor" class="campo" maxlength="8" onkeyup="maskvalor('valor')" placeholder="Valor em R$" required autofocus><br><br>
+                <input type="text" name="valor" class="campo" maxlength="8" onkeyup="maskvalor()" placeholder="Valor em R$" required autofocus><br><br>
 
                 Unidade<br>
                 <select name="unidade" class="campo">
@@ -43,19 +66,37 @@
                     <option value="kg">kg</option>
                     <option value="cm">cm</option>
                     <option value="m">m</option>
-                    <option value="mg">un</option>
+                    <option value="un">un</option>
                 </select><br><br>
 
                 Valor(Venda)<br>
-                <input type="text" name="venda" class="campo" maxlength="8" onkeyup="maskvalor('venda')" placeholder="Valor em R$" required autofocus><br><br>
+                <input type="text" name="venda" class="campo" maxlength="8" onkeyup="maskvalor()" placeholder="Valor em R$" required autofocus><br><br>
 
                 Faz Parte?</b><br>
                 <input type="radio" name="fazparte" value="sim" /> Sim
                 <input type="radio" name="fazparte" value="nao" /> Não<br />
 
             </form>
+
+            <?php
+            if (!empty($_POST)) {
+                if ($linhas == 1) {
+                    echo "<script>alert('Cadastro efetuado com sucesso!');</script>";
+                } else {
+                    echo "<script>alert('Cadastro NÃO efetuado!');</script>";
+                }
+            }
+            ?>
+
+            <?php 
+                function maskvalor($valor) {
+                    return "R$" .number_format(floatval($valor),2,',','.');
+                }
+            
+            ?>
         </section>
     </div>
 
 </body>
+
 </html>

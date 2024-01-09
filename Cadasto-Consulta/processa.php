@@ -10,7 +10,7 @@ $unidade = $_POST['unidade'];
 $venda = $_POST['venda'];
 $fazparte = $_POST['fazparte'];
 
-$sql = "insert into produtos (codigo, nome, descricao, valor, unidade, venda, fazparte) values ('$codigo', '$nome', '$descricao', '$valor', '$unidade', '$venda','$fazparte')";
+$sql = "insert ignore into produtos (codigo, nome, descricao, valor, unidade, venda, fazparte) values ('$codigo', '$nome', '$descricao', '$valor', '$unidade', '$venda','$fazparte')";
 $salvar = mysqli_query($conexao, $sql);
 
 $linhas = mysqli_affected_rows($conexao);

@@ -1,8 +1,12 @@
-<?php 
+<?php
 
 include_once("conexao.php");
 
-$sql = "select * from produtos";
+$filtro = isset($_GET['filtro'])?$_GET['filtro']:"";
+
+$sql = "select * from produtos where nome like '%$filtro%'order by nome";
+
+
 $consulta = mysqli_query($conexao, $sql);
 $registro = mysqli_num_rows($consulta);
 
@@ -10,11 +14,13 @@ $registro = mysqli_num_rows($consulta);
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <title>Sistema de Cadastro de Produtos</title>
     <link rel="stylesheet" href="estilo.css">
 </head>
+
 <body>
     <div class="container">
         <nav>
@@ -27,18 +33,21 @@ $registro = mysqli_num_rows($consulta);
             <h1>Consultas de Produtos</h1>
             <hr><br>
 
-            <form method="get" action="">
-                Filtrar por Código: <input type="text" name="filtro" class="campo" required autofocus>
-                <input type="submit" value="Pesqisar" class="btn"> 
-            </form
 
-            <?php 
-        
+            <form method="get" action="">
+                Filtrar por Nome do Produto: <input type="text" name="filtro" class="campo" required autofocus>
+                <input type="submit" value="Pesquisar" class="btn">
+            </form>
+
+            <?php
+
+            print "Resultado da pesquisa com a palavra <strong>$filtro</strong><br><br>";
+
             print "$registro registros encontrados.";
 
             print "<br><br>";
 
-            while ($exibirRegistro = mysqli_fetch_array($consulta)){
+            while ($exibirRegistro = mysqli_fetch_array($consulta)) {
 
                 $id = $exibirRegistro[0];
                 $codigo = $exibirRegistro[1];
@@ -61,7 +70,6 @@ $registro = mysqli_num_rows($consulta);
                 print "$fazparte";
 
                 print "</article>";
-            
             }
 
             mysqli_close($conexao);
@@ -71,4 +79,5 @@ $registro = mysqli_num_rows($consulta);
         </section>
     </div>
 </body>
+
 </html>
