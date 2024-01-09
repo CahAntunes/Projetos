@@ -28,14 +28,19 @@ if (!empty($_POST)) {
     <meta charset="UTF-8">
     <title>Sistema de Cadastro de Produtos</title>
     <link rel="stylesheet" href="estilo.css">
+
 </head>
 
 <body>
     <div class="container">
         <nav>
             <ul class="menu">
-                <a href="index.php"><li>Cadastro</li></a>
-                <a href="consultas.php"><li>Consultas</li></a>
+                <a href="index.php">
+                    <li>Cadastro</li>
+                </a>
+                <a href="consultas.php">
+                    <li>Consultas</li>
+                </a>
             </ul>
         </nav>
         <section>
@@ -57,7 +62,7 @@ if (!empty($_POST)) {
                 <input type="text" name="descricao" class="campo" maxlength="100" placeholder="Digite o código do produto" required autofocus><br><br>
 
                 Valor(un)<br>
-                <input type="text" name="valor" class="campo" maxlength="8" onkeyup="maskvalor()" placeholder="Valor em R$" required autofocus><br><br>
+                <input id="valor" type="text" name="valor" class="campo" placeholder="Valor em R$" required autofocus><br><br>
 
                 Unidade<br>
                 <select name="unidade" class="campo">
@@ -70,13 +75,21 @@ if (!empty($_POST)) {
                 </select><br><br>
 
                 Valor(Venda)<br>
-                <input type="text" name="venda" class="campo" maxlength="8" onkeyup="maskvalor()" placeholder="Valor em R$" required autofocus><br><br>
+                <input type="text" id="venda" name="venda" class="campo"  placeholder="Valor em R$" required autofocus><br><br>
 
                 Faz Parte?</b><br>
                 <input type="radio" name="fazparte" value="sim" /> Sim
                 <input type="radio" name="fazparte" value="nao" /> Não<br />
 
             </form>
+
+            <script src = "jquery-3.7.1.min.js"></script>
+            <script src = "jquery.mask.js"></script>
+
+            <script>
+                $('#valor').mask("#.##0,00", { reverse: true});
+                $('#venda').mask("#.##0,00", { reverse: true});
+            </script>
 
             <?php
             if (!empty($_POST)) {
@@ -86,13 +99,6 @@ if (!empty($_POST)) {
                     echo "<script>alert('Cadastro NÃO efetuado!');</script>";
                 }
             }
-            ?>
-
-            <?php 
-                function maskvalor($valor) {
-                    return "R$" .number_format(floatval($valor),2,',','.');
-                }
-            
             ?>
         </section>
     </div>
