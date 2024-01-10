@@ -27,12 +27,12 @@ $registro = mysqli_num_rows($consulta);
             <ul class="menu">
                 <a href="index.php"><li>Cadastro</li></a>
                 <a href="consultas.php"><li>Consultas</li></a>
+                <a href="editar.php"><li>Editar cadastro de produto</li></a>
             </ul>
         </nav>
         <section>
             <h1>Consultas de Produtos</h1>
             <hr><br>
-
 
             <form method="get" action="">
                 Filtrar por Nome do Produto: <input type="text" name="filtro" class="campo" required autofocus>
@@ -67,7 +67,15 @@ $registro = mysqli_num_rows($consulta);
                 print "$valor<br>";
                 print "$unidade<br>";
                 print "$venda<br>";
-                print "$fazparte";
+                print "$fazparte<br><br>";
+
+
+                print "<a href='editar.php?codigo=$codigo' class='btn-editar'>Editar</a>";
+                print "&nbsp;";
+                print "&nbsp;";
+                print "&nbsp;";
+                print "<a href='editar.php?codigo=$codigo' class='btn-deletar'>Deletar</a>";
+
 
                 print "</article>";
             }

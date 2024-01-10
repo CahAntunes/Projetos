@@ -11,10 +11,29 @@ if (!empty($_POST)) {
     $venda = $_POST['venda'];
     $fazparte = $_POST['fazparte'];
 
-    $sql = "insert ignore into produtos (codigo, nome, descricao, valor, unidade, venda, fazparte) values ('$codigo', '$nome', '$descricao', '$valor', '$unidade', '$venda','$fazparte')";
-    $salvar = mysqli_query($conexao, $sql);
 
-    $linhas = mysqli_affected_rows($conexao);
+    $sql_codigo = "select * from produtos where codigo = '$codigo'";
+    $result_codigo = $conexao->query($sql_codigo);
+
+    $sql_nome = "select * from produtos where nome = '$nome'";
+    $result_nome = $conexao->query($sql_nome);
+
+    if ($result_codigo->num_rows > 0) {
+        echo "<script>alert('Código já existe. Escolha outro.');</script>";
+    } elseif ($result_nome->num_rows > 0) {
+        echo "<script>alert('Nome já existe. Escolha outro.');</script>";
+        
+    } else {
+        $sql = "insert ignore into produtos (codigo, nome, descricao, valor, unidade, venda, fazparte) values ('$codigo', '$nome', '$descricao', '$valor', '$unidade', '$venda','$fazparte')";
+
+
+        if ($conexao->query($sql) === TRUE) {
+            echo "<script>alert('Dados inseridos com sucesso!')</script>";
+        } else {
+            echo "<script>alert('Erro ao inserir dados: ')" . $conexao->error . "</script>";
+            
+        }
+    }
 
     mysqli_close($conexao);
 }
@@ -41,6 +60,9 @@ if (!empty($_POST)) {
                 <a href="consultas.php">
                     <li>Consultas</li>
                 </a>
+                <a href="editar.php">
+                    <li>Editar cadastro de produto</li>
+                </a>
             </ul>
         </nav>
         <section>
@@ -62,44 +84,39 @@ if (!empty($_POST)) {
                 <input type="text" name="descricao" class="campo" maxlength="100" placeholder="Digite o código do produto" required autofocus><br><br>
 
                 Valor(un)<br>
-                <input id="valor" type="text" name="valor" class="campo" placeholder="Valor em R$" required autofocus><br><br>
+                <input  type="text" id="valor" name="valor" class="campo" placeholder="Valor em R$" required autofocus><br><br>
 
                 Unidade<br>
-                <select name="unidade" class="campo">
+                <select name="unidade" class="campo"> 
                     <option value="mg">mg</option>
                     <option value="g">g</option>
                     <option value="kg">kg</option>
                     <option value="cm">cm</option>
                     <option value="m">m</option>
-                    <option value="un">un</option>
+                    <option selected value="un">un</option>
                 </select><br><br>
 
                 Valor(Venda)<br>
-                <input type="text" id="venda" name="venda" class="campo"  placeholder="Valor em R$" required autofocus><br><br>
+                <input type="text" id="venda" name="venda" class="campo" placeholder="Valor em R$" required autofocus><br><br>
 
                 Faz Parte?</b><br>
-                <input type="radio" name="fazparte" value="sim" /> Sim
+                <input type="radio" name="fazparte" value="sim" checked /> Sim
                 <input type="radio" name="fazparte" value="nao" /> Não<br />
 
             </form>
 
-            <script src = "jquery-3.7.1.min.js"></script>
-            <script src = "jquery.mask.js"></script>
+            <script src="jquery-3.7.1.min.js"></script>
+            <script src="jquery.mask.js"></script>
 
             <script>
-                $('#valor').mask("#.##0,00", { reverse: true});
-                $('#venda').mask("#.##0,00", { reverse: true});
+                $('#valor').mask("#.##0,00", {
+                    reverse: true
+                });
+                $('#venda').mask("#.##0,00", {
+                    reverse: true
+                });
             </script>
 
-            <?php
-            if (!empty($_POST)) {
-                if ($linhas == 1) {
-                    echo "<script>alert('Cadastro efetuado com sucesso!');</script>";
-                } else {
-                    echo "<script>alert('Cadastro NÃO efetuado!');</script>";
-                }
-            }
-            ?>
         </section>
     </div>
 
