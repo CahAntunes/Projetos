@@ -12,25 +12,23 @@ if (!empty($_POST)) {
     $fazparte = $_POST['fazparte'];
 
 
-    $sql_codigo = "select * from produtos where codigo = '$codigo'";
+    $sql_codigo = "select codigo from produtos where codigo = '$codigo'";
     $result_codigo = $conexao->query($sql_codigo);
 
-    $sql_nome = "select * from produtos where nome = '$nome'";
+    $sql_nome = "select nome from produtos where nome = '$nome'";
     $result_nome = $conexao->query($sql_nome);
 
     if ($result_codigo->num_rows > 0) {
-        echo "<script>alert('Código já existe. Escolha outro.');</script>";
+        echo "<script>alert('Código já Cadastrado! Digite um novo código.');</script>";
     } elseif ($result_nome->num_rows > 0) {
-        echo "<script>alert('Nome já existe. Escolha outro.');</script>";
-        
+        echo "<script>alert('Nome já Cadastrato! Digite um novo nome.');</script>";
     } else {
         $sql = "insert ignore into produtos (codigo, nome, descricao, valor, unidade, venda, fazparte) values ('$codigo', '$nome', '$descricao', '$valor', '$unidade', '$venda','$fazparte')";
-
 
         if ($conexao->query($sql) === TRUE) {
             echo "<script>alert('Dados inseridos com sucesso!')</script>";
         } else {
-            echo "<script>alert('Erro ao inserir dados: ')" . $conexao->error . "</script>";
+            echo "<script>alert('Erro ao inserir dados!')" . $conexao->error . "</script>";
             
         }
     }
@@ -59,9 +57,6 @@ if (!empty($_POST)) {
                 </a>
                 <a href="consultas.php">
                     <li>Consultas</li>
-                </a>
-                <a href="editar.php">
-                    <li>Editar cadastro de produto</li>
                 </a>
             </ul>
         </nav>

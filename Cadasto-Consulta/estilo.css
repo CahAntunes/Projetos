@@ -8,6 +8,16 @@ a {
     color: #fff;
 }
 
+#voltar{
+    min-width: 100px;
+    min-height: 30px;
+    border: 1px solid #ddd;
+    background-color: #2a578b; 
+    color: #fff;
+    cursor: pointer;
+    padding: 10px;
+}
+
 body {
     background-color: #494949;
     font-family: 'Noto Sans', sans-serif;
@@ -59,12 +69,15 @@ ul.menu li {
 }
 
 .btn {
-    width: 100px;
-    height: 30px;
+    min-width: 100px;
+    min-height: 30px;
     border: 1px solid #ddd;
     background-color: #2a578b;
     color: #fff;
     cursor: pointer;
+    padding: 10px;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 100%;
 }
 
 .campo {
@@ -77,21 +90,28 @@ ul.menu li {
 
 
 .btn-editar {
-    width: 50px;
-    height: 30px;
+    min-width: 100px;
+    min-height: 30px;
     border: 1px solid #ddd;
-    background-color: #3d8d48;
+    background-color: #235617;
     color: #fff;
     cursor: pointer;
+    padding: 10px;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 100%;
+    
 }
 
 .btn-deletar {
-    width: 50px;
-    height: 30px;
+    min-width: 100px;
+    min-height: 30px;
     border: 1px solid #ddd;
     background-color: #9b1309;
     color: #fff;
     cursor: pointer;
+    padding: 10px;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 100%;
 }
 
 article {

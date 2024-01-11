@@ -2,41 +2,52 @@
 
 include_once("conexao.php");
 
-if (isset($_GET['codigo'])) {
-    $codigo = $_GET['codigo'];
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $novosDados = array(
-            'codigo' => $_POST['codigo'],
-            'nome' => $_POST['nome'],
-            'descricao' => $_POST['descricao'],
-            'valor' => $_POST['valor'],
-            'unidade' => $_POST['unidade'],
-            'venda' => $_POST['venda'],
-            'fazparte' => isset($_POST['fazparte']) ? $_POST['fazparte'] : '',
-        );
 
-        $campos = array();
-        foreach ($novosDados as $campo => $valor) {
-            $campos[] = "$campo = '$valor'";
-        }
+        $codigo = $_POST['codigo'];;
+        $nome = mysqli_real_escape_string($conexao, $_POST['nome']);
+        $descricao = mysqli_real_escape_string($conexao, $_POST['descricao']);
+        $valor = $_POST['valor'];
+        $unidade = $_POST['unidade'];
+        $venda = $_POST['venda'];
+        $fazparte = isset($_POST['fazparte']) ? $_POST['fazparte'] : '';
 
-        $sql = "update produtos set " . implode(', ', $campos) . " where codigo = $codigo";
+        $sql = "UPDATE produtos SET
+                codigo = '$codigo',
+                nome = '$nome',
+                descricao = '$descricao',
+                valor = '$valor',
+                unidade = '$unidade',
+                venda = '$venda',
+                fazparte = '$fazparte'
+                WHERE id = $id";
+
+
         $resultado = mysqli_query($conexao, $sql);
 
         if ($resultado) {
-            echo "Produto atualizado com sucesso!";
+            echo "<script>alert('Produto atualizado com sucesso!');</script>";
         } else {
-            echo "Erro ao atualizar o produto: " . mysqli_error($conexao);
+            echo "<script>alert('Erro ao atualizar o produto!');</script>"
+                . mysqli_error($conexao);
         }
     }
 
-    $consulta = mysqli_query($conexao, "select * from produtos where codigo = $codigo");
-    $dadosProduto = mysqli_fetch_assoc($consulta);
+
+    $consulta = mysqli_query($conexao, "SELECT * FROM produtos WHERE id = $id");
+
+    if ($consulta) {
+        $dadosProduto = mysqli_fetch_assoc($consulta);
+    } else {
+        echo "Erro ao recuperar os dados do produto: " . mysqli_error($conexao);
+        exit;
+    }
+
 
     mysqli_close($conexao);
-} else {
-    echo "Codigo do produto não fornecido.";
 }
 
 ?>
@@ -60,12 +71,10 @@ if (isset($_GET['codigo'])) {
                 <a href="consultas.php">
                     <li>Consultas</li>
                 </a>
-                <a href="editar.php">
-                    <li>Editar cadastro de produto</li>
-                </a>
             </ul>
         </nav>
         <section>
+
             <h1>Editar Produto</h1>
             <hr><br>
 
@@ -108,6 +117,9 @@ if (isset($_GET['codigo'])) {
 
                 <input type="submit" value="Salvar Alterações" class="btn">
 
+
+                <a id="voltar" href="consultas.php">Voltar para Consultas</a>
+
             </form>
 
 
@@ -125,7 +137,6 @@ if (isset($_GET['codigo'])) {
 
         </section>
 
-        <a href="consultas.php">Voltar para Consultas</a>
 
     </div>
 </body>
