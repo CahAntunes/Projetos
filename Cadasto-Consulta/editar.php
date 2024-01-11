@@ -7,13 +7,19 @@ if (isset($_GET['id'])) {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        $codigo = $_POST['codigo'];;
         $nome = mysqli_real_escape_string($conexao, $_POST['nome']);
+        $codigo = $_POST['codigo'];;
         $descricao = mysqli_real_escape_string($conexao, $_POST['descricao']);
         $valor = $_POST['valor'];
         $unidade = $_POST['unidade'];
         $venda = $_POST['venda'];
         $fazparte = isset($_POST['fazparte']) ? $_POST['fazparte'] : '';
+
+        if (!verificarNomeUnico($conexao, $nome, $id)) {
+            echo "<script>alert('Nome do produto já cadastrado. Digite um novo nome.');</script>";
+            echo "<script>window.location.href = 'editar.php?id=$id';</script>";
+            exit;
+        }
 
         $sql = "UPDATE produtos SET
                 codigo = '$codigo',
@@ -31,21 +37,18 @@ if (isset($_GET['id'])) {
         if ($resultado) {
             echo "<script>alert('Produto atualizado com sucesso!');</script>";
         } else {
-            echo "<script>alert('Erro ao atualizar o produto!');</script>"
-                . mysqli_error($conexao);
+            echo "<script>alert('Código do produto já cadastrado. Digite um novo código.');</script>";
         }
     }
-
 
     $consulta = mysqli_query($conexao, "SELECT * FROM produtos WHERE id = $id");
 
     if ($consulta) {
         $dadosProduto = mysqli_fetch_assoc($consulta);
     } else {
-        echo "Erro ao recuperar os dados do produto: " . mysqli_error($conexao);
+        echo "<script>alert('Erro ao recuperar os dados do produto!');</script>" . mysqli_error($conexao);
         exit;
     }
-
 
     mysqli_close($conexao);
 }
@@ -115,7 +118,7 @@ if (isset($_GET['id'])) {
                 <input type="radio" name="fazparte" value="Não" <?php echo ($dadosProduto['fazparte'] == 'Não') ? 'checked' : ''; ?>> Não<br><br>
 
 
-                <input type="submit" value="Salvar Alterações" class="btn">
+                <input type="submit" value="Salvar Alterações" onclick="confirmarAlteracao()" class="btn">
 
 
                 <a id="voltar" href="consultas.php">Voltar para Consultas</a>
@@ -136,9 +139,16 @@ if (isset($_GET['id'])) {
             </script>
 
         </section>
-
-
     </div>
+
+    <script>
+
+    function confirmarAlteracao() {
+        return confirm("Deseja mesmo alterar esse produto?");
+    }
+
+    </script>
+
 </body>
 
 </html>

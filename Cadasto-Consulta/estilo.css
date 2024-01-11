@@ -1,3 +1,8 @@
+#img{
+    overflow: hidden;
+    animation: fade 0.2s;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -102,7 +107,7 @@ ul.menu li {
     
 }
 
-.btn-deletar {
+.btn-excluir {
     min-width: 100px;
     min-height: 30px;
     border: 1px solid #ddd;
@@ -113,6 +118,19 @@ ul.menu li {
     font-family: 'Noto Sans', sans-serif;
     font-size: 100%;
 }
+
+.btn-copiar {
+    min-width: 100px;
+    min-height: 30px;
+    border: 1px solid #ddd;
+    background-color: #b8ac09;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 100%;
+}
+
 
 article {
     width: 100%;

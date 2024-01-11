@@ -73,8 +73,13 @@ $registro = mysqli_num_rows($consulta);
                 print "&nbsp;";
                 print "&nbsp;";
                 print "&nbsp;";
-                print "<a href='deletar.php?id=$id' class='btn-deletar'>Deletar</a>";
+                print "<a href='excluir.php?id=$id' class='btn-excluir' onclick='return confirmarExclusao(); '>Excluir</a>";
+                print "&nbsp;";
+                print "&nbsp;";
+                print "&nbsp;";
 
+                $idProduto = $exibirRegistro['id'];
+                echo "<a href='index.php?copiar=$idProduto' class='btn-copiar'>Copiar</a>";
 
                 print "</article>";
             }
@@ -85,6 +90,14 @@ $registro = mysqli_num_rows($consulta);
 
         </section>
     </div>
+
+    <script>
+    function confirmarExclusao() {
+        return confirm("Deseja mesmo excluir esse produto?");
+    }
+
+</script>
+
 </body>
 
 </html>

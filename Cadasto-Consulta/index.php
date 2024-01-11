@@ -3,7 +3,13 @@
 if (!empty($_POST)) {
     include_once("conexao.php");
 
-    $codigo = $_POST['codigo'];
+    $sql_max_codigo = "SELECT MAX(codigo) AS max_codigo FROM produtos";
+    $result_max_codigo = $conexao->query($sql_max_codigo);
+    $row_max_codigo = $result_max_codigo->fetch_assoc();
+    $proximo_codigo = $row_max_codigo['max_codigo'] + 1;
+
+
+    $codigo = isset($_POST['codigo']) ? $_POST['codigo'] : $proximo_codigo;
     $nome = $_POST['nome'];
     $descricao = $_POST['descricao'];
     $valor = $_POST['valor'];
@@ -18,6 +24,7 @@ if (!empty($_POST)) {
     $sql_nome = "select nome from produtos where nome = '$nome'";
     $result_nome = $conexao->query($sql_nome);
 
+
     if ($result_codigo->num_rows > 0) {
         echo "<script>alert('Código já Cadastrado! Digite um novo código.');</script>";
     } elseif ($result_nome->num_rows > 0) {
@@ -29,7 +36,6 @@ if (!empty($_POST)) {
             echo "<script>alert('Dados inseridos com sucesso!')</script>";
         } else {
             echo "<script>alert('Erro ao inserir dados!')" . $conexao->error . "</script>";
-            
         }
     }
 
@@ -45,7 +51,6 @@ if (!empty($_POST)) {
     <meta charset="UTF-8">
     <title>Sistema de Cadastro de Produtos</title>
     <link rel="stylesheet" href="estilo.css">
-
 </head>
 
 <body>
@@ -70,7 +75,7 @@ if (!empty($_POST)) {
                 <br><br>
 
                 Código do Produto<br>
-                <input type="text" name="codigo" class="campo" maxlength="10" placeholder="Digite o código do produto" required autofocus><br><br>
+                <input type="text" name="codigo" class="campo" maxlength="10" placeholder="Digite o código do produto"  required autofocus><br><br>
 
                 Nome<br>
                 <input type="text" name="nome" class="campo" maxlength="100" placeholder="Digite o nome do produto" required autofocus><br><br>
@@ -79,10 +84,10 @@ if (!empty($_POST)) {
                 <input type="text" name="descricao" class="campo" maxlength="100" placeholder="Digite o código do produto" required autofocus><br><br>
 
                 Valor(un)<br>
-                <input  type="text" id="valor" name="valor" class="campo" placeholder="Valor em R$" required autofocus><br><br>
+                <input type="text" id="valor" name="valor" class="campo" placeholder="Valor em R$" required autofocus><br><br>
 
                 Unidade<br>
-                <select name="unidade" class="campo"> 
+                <select name="unidade" class="campo">
                     <option value="mg">mg</option>
                     <option value="g">g</option>
                     <option value="kg">kg</option>
