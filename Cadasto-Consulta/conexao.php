@@ -21,5 +21,17 @@ function verificarNomeUnico($conexao, $nome, $id) {
     return mysqli_num_rows($resultado) == 0;
 }
 
+function proximoCodigo($conexao) {
 
-?>
+    $query = "SELECT codigo FROM produtos ORDER BY codigo DESC LIMIT 1";
+    $resultado = mysqli_query($conexao, $query);
+
+    if ($resultado && $resultado->num_rows > 0) {
+        $row = $resultado->fetch_assoc();
+        $next_code = $row['codigo'] + 1;
+    } else {
+        $next_code = 1;
+    }
+
+    return  'A';
+}

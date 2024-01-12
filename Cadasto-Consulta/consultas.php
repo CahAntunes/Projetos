@@ -69,7 +69,7 @@ $registro = mysqli_num_rows($consulta);
                 print "$fazparte<br><br>";
 
 
-                print "<a href='editar.php?id=$id' class='btn-editar'>Editar</a>";
+                print "<a href='index.php?id=$id' class='btn-editar'>Editar</a>";
                 print "&nbsp;";
                 print "&nbsp;";
                 print "&nbsp;";
