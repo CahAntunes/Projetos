@@ -21,17 +21,19 @@ function verificarNomeUnico($conexao, $nome, $id) {
     return mysqli_num_rows($resultado) == 0;
 }
 
-function proximoCodigo($conexao) {
+function proximo_codigo_produto($conexao) {
 
-    $query = "SELECT codigo FROM produtos ORDER BY codigo DESC LIMIT 1";
-    $resultado = mysqli_query($conexao, $query);
+    $sql = "SELECT MAX(codigo) AS codigo FROM produtos";
+    $resultado = mysqli_query($conexao, $sql);
 
-    if ($resultado && $resultado->num_rows > 0) {
-        $row = $resultado->fetch_assoc();
-        $next_code = $row['codigo'] + 1;
+    if ($resultado && mysqli_num_rows($resultado) > 0) {
+        $dados = mysqli_fetch_assoc($resultado);
+        $codigo = $dados['codigo'] + 1;
     } else {
-        $next_code = 1;
+        $codigo = 1;
     }
 
-    return  'A';
+    return str_pad($codigo, 3, "0", STR_PAD_LEFT);
 }
+
+?> 
