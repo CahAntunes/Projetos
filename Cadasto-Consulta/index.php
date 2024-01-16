@@ -3,8 +3,8 @@
 include_once("conexao.php");
 
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+if (isset($_GET['id']) || isset($_GET['copiar']) ) {
+    $id = isset($_GET['id']) ? $_GET['id'] :  $_GET['copiar'];
 
     $consulta = mysqli_query($conexao, "SELECT * FROM produtos WHERE id = $id");
 
@@ -16,6 +16,9 @@ if (isset($_GET['id'])) {
     }
 }
 
+if (isset($_GET['copiar'])) {
+    $proximo_codigo = proximo_codigo_produto($conexao);
+}
 
 if (!empty($_POST)) {
 
@@ -27,10 +30,8 @@ if (!empty($_POST)) {
     $venda = $_POST['venda'];
     $fazparte = $_POST['fazparte'];
 
-    $proximo_codigo = proximo_codigo_produto($conexao);
-
-    // $sql_codigo = "select codigo from produtos where codigo = '$codigo'";
-    // $result_codigo = $conexao->query($sql_codigo);
+    $sql_codigo = "select codigo from produtos where codigo = '$codigo'";
+    $result_codigo = $conexao->query($sql_codigo);
 
     $sql_nome = "select nome from produtos where nome = '$nome'";
     $result_nome = $conexao->query($sql_nome);
@@ -64,18 +65,23 @@ if (!empty($_POST)) {
         }
     } else {
 
-        if ($codigo == '') {
-            $codigo = $proximo_codigo;
-          }
+        // if ($codigo == '') {
+        //     $codigo = $proximo_codigo;
+        // }
 
-        // if ($result_codigo->num_rows > 0) {
-        //     echo "<script>alert('Código já Cadastrado! Digite um novo código.');</script>";
-        // } 
-        
-        if ($result_nome->num_rows > 0) {
+        $sql_codigo = "SELECT codigo FROM produtos WHERE codigo = '$codigo'";
+        $result_codigo = $conexao->query($sql_codigo);
+
+        $sql_nome = "SELECT nome FROM produtos WHERE nome = '$nome'";
+        $result_nome = $conexao->query($sql_nome);
+
+        if ($result_codigo->num_rows > 0) {
+            echo "<script>alert('Código já Cadastrado! Digite um novo código.');</script>";
+        } elseif ($result_nome->num_rows > 0) {
             echo "<script>alert('Nome já Cadastrato! Digite um novo nome.');</script>";
         } else {
             $sql = "insert ignore into produtos (codigo, nome, descricao, valor, unidade, venda, fazparte) values ('$codigo', '$nome', '$descricao', '$valor', '$unidade', '$venda','$fazparte')";
+
 
             if ($conexao->query($sql) === TRUE) {
                 echo "<script>alert('Dados inseridos com sucesso!')</script>";
@@ -84,9 +90,11 @@ if (!empty($_POST)) {
             }
         }
     }
-
-    mysqli_close($conexao);
 }
+
+$proximo_codigo = proximo_codigo_produto($conexao);
+
+mysqli_close($conexao);
 
 ?>
 
@@ -112,7 +120,7 @@ if (!empty($_POST)) {
             </ul>
         </nav>
         <section>
-            <h1><?php isset($_GET['id']) ? print_r('Editar Produto') : print_r('Cadastro de Produtos')?></h1>
+            <h1><?php isset($_GET['id']) ? print_r('Editar Produto') : print_r('Cadastro de Produtos') ?></h1>
             <hr><br><br>
 
             <form method="post" action="index.php">
@@ -128,7 +136,8 @@ if (!empty($_POST)) {
                 <br><br>
 
                 Código do Produto<br>
-                <input type="text" name="codigo" class="campo" maxlength="10" <?php isset($dadosProduto['codigo']) ? print_r('readonly') : print_r(''); ?> value="<?php echo isset($dadosProduto['codigo']) ? $dadosProduto['codigo'] : proximo_codigo_produto($conexao); ?>" required autofocus><br><br>
+                <input type="text" name="codigo" class="campo" maxlength="10" <?php isset($dadosProduto['codigo']) ? print_r('readonly') : print_r(''); ?> value="<?php echo isset($_GET['copiar']) ? $proximo_codigo : 
+                (isset($dadosProduto['codigo']) ? $dadosProduto['codigo'] : $proximo_codigo); ?>" required autofocus><br><br>
 
                 Nome<br>
                 <input type="text" name="nome" class="campo" maxlength="100" value="<?php echo isset($dadosProduto['nome']) ? $dadosProduto['nome'] : ''; ?>" required><br><br>
@@ -178,7 +187,6 @@ if (!empty($_POST)) {
         function confirmarAlteracao() {
             return confirm("Deseja mesmo alterar esse produto?");
         }
-        
     </script>
 
 </body>
