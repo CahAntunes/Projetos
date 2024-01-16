@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classes e Ids</title>    <!-- UTILIZANDO SELETORES É POSSIVEL APLICAR  UMA FORMATAÇÃO ESPECIFICA EM TODAS AS TEGS DE UMA UNICA VEZ -->
+
+    <style type="text/css">
+
+        /* Formatação Geral por paragrafo */
+         p {
+            color: red;
+         }
+
+         h1 {
+            color: blue;
+         }
+
+         /* Formatação Especifica por Classe */
+         .azul {
+            color: rgb(223, 13, 212);
+         }
+
+         #principal {
+            background: aqua;
+        }
+
+         #cabecalho {
+            background: rgb(17, 243, 9);
+         }
+
+    </style>
+   
+</head> 
+<body id="principal">
+
+    <div></div> 
+    
+        <div id="cabecalho">
+            <img src="imagens/logo.png">
+            <ul>
+                <li>Home</li>
+                <li>Quem Somos</li>
+                <li>Contato</li>
+            </ul>
+        </div>
+
+        <div id="conteudo-principal">
+            <div class="coluna">
+                Coluna 1   
+            </div>
+
+            <div class="coluna">
+                Coluna 2   
+            </div>
+
+            <div class="coluna">
+                Coluna 3   
+            </div>
+        </div>
+
+    </div>
+
+    <h1>Estilo CSS (internal style sheets)</h1>
+    <p class="azul"> 
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras volutpat nunc vitae velit molestie euismod. Sed finibus, justo a gravida euismod, augue enim sollicitudin magna, ac lobortis est nibh a leo. 
+    </p>
+
+    <p class="azul"> 
+        Vivamus eget vestibulum tellus, eu porttitor justo. Praesent augue neque, sollicitudin a lobortis vitae, laoreet ac dolor. Sed a placerat nisi. Maecenas dui mauris, euismod at consequat cursus, molestie eu lacus. Nunc turpis dui, pretium ac lobortis eget, posuere ac risus. Ut convallis eleifend elit ac consequat.
+    </p>
+
+    <h1>Formatação</h1>
+    <p> 
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras volutpat nunc vitae velit molestie euismod. Sed finibus, justo a gravida euismod, augue enim sollicitudin magna, ac lobortis est nibh a leo. 
+    </p>
+
+    <p class="azul"> 
+        Vivamus eget vestibulum tellus, eu porttitor justo. Praesent augue neque, sollicitudin a lobortis vitae, laoreet ac dolor. Sed a placerat nisi. Maecenas dui mauris, euismod at consequat cursus, molestie eu lacus. Nunc turpis dui, pretium ac lobortis eget, posuere ac risus. Ut convallis eleifend elit ac consequat.
+    </p>
+    
+</body>
+</html>
