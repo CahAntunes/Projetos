@@ -2,7 +2,6 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cor e imagem de fundo</title>
 
     <style type="text/css">
@@ -12,17 +11,31 @@
             color : white; 
         } */
 
-        bory {
-            background-image: url('img/yoshi.png');
-        }
-            
+        body {
+            /* background-image: url('img/flor.png'); */
 
+           /*repetições da imagem na tela: repeat-x. repeat-y, no-repet, repeat*/
+            background-repeat: no-repeat;    
+            
+            /*scrool, fixed*/
+            background-attachment: fixed;  
+            
+            /*primeiro valor: left, center, right
+            segundo valor: top, center, botom*/
+            background-position: center;
+        }
+
+        .fundo {
+            background: #FAAC58 url('img/flor.png') no-repeat scroll center;
+
+        }
     </style>
 
 </head>
-<body>
- 
+<body class="fundo">
         <h1>Conteúdo de título 1</h1>
+
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis, et tenetur? Maxime, nostrum vitae fugit quibusdam blanditiis voluptatem quis id aliquam distinctio soluta qui pariatur ipsa aperiam incidunt nobis possimus?</p>
     
 </body>
 </html>
