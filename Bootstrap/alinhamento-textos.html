@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <!-- Meta tags Obrigatórias -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <title>Alinhamentos de Texto</title>
+</head>
+<body style="margin-bottom: 200px; padding: 16px;">
+
+    <!-- Parágrafo justificado -->
+    <p class="text-justify"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi atque molestias magni,
+        consectetur vitae dolor temporibus blanditiis, non autem itaque qui nobis. Dicta, rem. Suscipit optio ut
+        doloribus eaque ea! </p>
+
+    <br>
+    <br>
+
+    <!-- Alinhamento responsivo - 
+    class text-<tela>-<alinhamento>
+    tela: sm, md, lg, xl
+    alinhamento: left, center, right -->
+
+    <p class="text-sm-center">tela &gt;= 576px</p> <!--small -->
+    <p class="text-md-right">tela &gt;= 768px</p> <!--medium -->
+    <p class="text-lg-right">tela &gt;= 992px</p> <!--large -->
+    <p class="text-xl-right">tela &gt;= 1200px</p> <!--extra large -->
+
+    <br>
+    <br>
+
+    <!-- Elementos de Block para inline -->
+    <h1 class="bg-success d-inline">Lorem ipsum dolor</h1>
+    <p class="bg-success d-inline">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+
+    <br>
+    <br>
+
+    <!-- Elemento Inline para Block -->
+    <span class="bg-success d-block">Lorem ipsum dolor 1</span>
+    <br>
+    <spam class="bg-success d-block">Lorem ipsum dolor 2</spam>
+
+    <br>
+    <br>
+
+    <!-- Elementos Inline-Block -->
+    <div class="bg-warning">
+        <h3 class="bg-success d-inline-block">Lorem ipsum</h3>
+        <h3 class="bg-success d-inline-block" style="margin-top: 50px; width: 400px;">Lorem ipsum dolor</h3>
+    </div>
+
+    <!-- JavaScript (Opcional) -->
+    <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>
