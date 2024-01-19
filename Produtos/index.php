@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD - Cadastrar</title>
+</head>
+<body>
+    <h1>Cadastrar Usuários</h1>
+    <form method="post" action="processa.php">
+        <labe>Nome:</labe>
+        <input type="text" name="nome" placeholder="Digite o nome completo"><br><br>
+
+        <labe>Idade:</labe>
+        <input type="text" name="idade" placeholder="Digite sua idade"><br><br>
+
+        <labe>Sexo:</labe>
+        <input type="radio" name="sexo" value="M" checked> M 
+        <input type="radio" name="sexo" value="F"> F<br><br> 
+
+        <labe>Endereço:</labe>
+        <input type="text" name="endereco" placeholder="Digite seu endereço"><br><br>
+
+        <labe>Nº:</labe>
+        <input type="text" name="numero" placeholder="Informe o número da casa"><br><br>
+
+        <labe>Complemento:</labe>
+        <input type="text" name="complemento" placeholder="Informe o complemento"><br><br>
+
+        <input type="submit" value="Cadastrar">
+    </form>
+
+
+</body>
+</html>
