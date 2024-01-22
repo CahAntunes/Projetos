@@ -1,0 +1,24 @@
+-- Criação da tabela PESSOA --
+
+CREATE TABLE `produtos`.`pessoa` ( `id` INT NOT NULL AUTO_INCREMENT , 
+`nome` VARCHAR(60) NOT NULL , 
+`idade` INT NOT NULL , 
+`sexo` ENUM('M','F') NOT NULL DEFAULT 'M' , 
+`endereco` VARCHAR(80) NOT NULL , 
+PRIMARY KEY (`id`)) ENGINE = InnoDB;
+--obs: Ao criar colocar verificação para ter certeza que nenhuma tabela com o nome criado ja existe. EX: Create IFNOT EXIST nome da tabela --
+
+
+-- Adicionando campo numero e complemento--
+ALTER TABLE `pessoa` ADD `numero` INT NULL AFTER `endereco`;
+ALTER TABLE `pessoa` ADD `complemento` VARCHAR(30) NOT NULL AFTER `numero`;
+
+
+--Alterado condições do campo numero (p/not null) e complemento (retirado not null)--
+ALTER TABLE `pessoa` CHANGE `numero` `numero` INT NOT NULL, 
+CHANGE `complemento` `complemento` VARCHAR(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL;
+
+-- inserido no campo RA_PESSOA---
+
+ALTER TABLE `pessoa` ADD `ra_pessoa` INT(4) NOT NULL AFTER `id`;
+
