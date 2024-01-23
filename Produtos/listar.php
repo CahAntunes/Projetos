@@ -13,6 +13,8 @@ include_once("conexao.php");
 </head>
 
 <body>
+    <a href="index.php">Cadastrar</a><br>
+    <a href="listar.php">Listar</a><br>
     <h1>Listar Usuários</h1>
     <?php
     if (isset($_SESSION['msg'])) {
@@ -23,7 +25,7 @@ include_once("conexao.php");
 
     $pagina = (!empty($pagina_atual)) ? $pagina_atual : 1;
 
-    $qnt_result_pg = 2;
+    $qnt_result_pg = 3;
     
     $inicio = ($qnt_result_pg * $pagina) - $qnt_result_pg;
 
@@ -37,7 +39,8 @@ include_once("conexao.php");
         echo "Sexo: "  . $row_usuario['sexo'] . "<br>";
         echo "Endereço: "  . $row_usuario['endereco'] . "<br>";
         echo "Nº: "  . $row_usuario['numero'] . "<br>";
-        echo "Complemento: "  . $row_usuario['complemento'] . "<br><hr>";
+        echo "Complemento: "  . $row_usuario['complemento'] . "<br>";
+        echo "<a href='editar.php?id=" . $row_usuario['id'] . "'>Editar</a><br><hr>";
     }
 
     $result_pg = "SELECT COUNT(Id) AS num_result FROM pessoa";
@@ -52,11 +55,18 @@ include_once("conexao.php");
 
     for($pag_ant = $pagina - $max_links; $pag_ant <= $pagina - 1; $pag_ant ++) {
         if($pag_ant >= 1){
-        echo "<a href ='listar.php?pagina=$pag_ant'>$pag_ant </a>"; 
+            echo "<a href ='listar.php?pagina=$pag_ant'>$pag_ant </a>"; 
         }
     }
 
-    echo "<a href ='listar.php?pagina=$quantidade_pg'> Ultima</a>"; 
+    echo "$pagina"; 
+
+    for($pag_dep = $pagina + 1; $pag_dep <= $pagina + $max_links; $pag_dep ++) {
+        if($pag_dep <=$quantidade_pg) {
+            echo "<a href ='listar.php?pagina=$pag_dep'>$pag_dep </a>"; 
+        }
+    }
+    echo "<a href='listar.php?pagina=$quantidade_pg'> Ultima</a>"; 
 
     ?>
 

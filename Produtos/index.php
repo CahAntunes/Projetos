@@ -12,9 +12,11 @@ session_start();
 </head>
 
 <body>
+    <a href="index.php">Cadastrar</a><br>
+    <a href="listar.php">Listar</a><br>
     <h1>Cadastrar Usuários</h1>
-    <?php 
-    if(isset($_SESSION['msg'])) {
+    <?php
+    if (isset($_SESSION['msg'])) {
         echo $_SESSION['msg'];
         unset($_SESSION['msg']);
     }
@@ -46,6 +48,8 @@ session_start();
         <input type="submit" value="Cadastrar">
     </form>
 
+    <script src="jquery-3.7.1.min.js"></script>
+    <script src="jquery.mask.js"></script>
 
 </body>
 
