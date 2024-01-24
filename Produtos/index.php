@@ -1,5 +1,6 @@
 <?php
 session_start();
+include_once("conexao.php");
 ?>
 
 <!DOCTYPE html>
@@ -8,48 +9,67 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD - Cadastrar</title>
+    <title>CRUD - Listar</title>
 </head>
 
 <body>
-    <a href="index.php">Cadastrar</a><br>
-    <a href="listar.php">Listar</a><br>
-    <h1>Cadastrar Usuários</h1>
+    <a href="cad_usuario.php">Cadastrar</a><br>
+    <a href="index.php">Listar</a><br>
+    <h1>Listar Usuários</h1>
     <?php
     if (isset($_SESSION['msg'])) {
         echo $_SESSION['msg'];
         unset($_SESSION['msg']);
     }
+    $pagina_atual = filter_input(INPUT_GET, 'pagina', FILTER_SANITIZE_NUMBER_INT);
+
+    $pagina = (!empty($pagina_atual)) ? $pagina_atual : 1;
+
+    $qnt_result_pg = 3;
+    
+    $inicio = ($qnt_result_pg * $pagina) - $qnt_result_pg;
+
+    $result_usuarios = "SELECT * FROM pessoa LIMIT $inicio, $qnt_result_pg";
+    $resultado_usuarios = mysqli_query($conexao, $result_usuarios);
+    while ($row_usuario = mysqli_fetch_array($resultado_usuarios)) {
+        echo "ID: "  . $row_usuario['id'] . "<br>";
+        echo "RA: "  . $row_usuario['ra_pessoa'] . "<br>";
+        echo "Nome: "  . $row_usuario['nome'] . "<br>";
+        echo "Idade: "  . $row_usuario['idade'] . "<br>";
+        echo "Sexo: "  . $row_usuario['sexo'] . "<br>";
+        echo "Endereço: "  . $row_usuario['endereco'] . "<br>";
+        echo "Nº: "  . $row_usuario['numero'] . "<br>";
+        echo "Complemento: "  . $row_usuario['complemento'] . "<br>";
+        echo "<a href='editar.php?id=" . $row_usuario['id'] . "'>Editar</a><br>";
+        echo "<a href='proc_apagar_usuario.php?id=" . $row_usuario['id'] . "'>Apagar</a><br><hr>";
+    }
+
+    $result_pg = "SELECT COUNT(Id) AS num_result FROM pessoa";
+    $resultado_pg = mysqli_query($conexao, $result_pg);
+    $row_pg = mysqli_fetch_array($resultado_pg);
+    // echo $row_pg['num_result'];
+
+    $quantidade_pg = ceil($row_pg['num_result'] / $qnt_result_pg);
+    
+    $max_links = 2;
+    echo "<a href='index.php?pagina=1'>Primeira </a>"; 
+
+    for($pag_ant = $pagina - $max_links; $pag_ant <= $pagina - 1; $pag_ant ++) {
+        if($pag_ant >= 1){
+            echo "<a href ='index.php?pagina=$pag_ant'>$pag_ant </a>"; 
+        }
+    }
+
+    echo "$pagina"; 
+
+    for($pag_dep = $pagina + 1; $pag_dep <= $pagina + $max_links; $pag_dep ++) {
+        if($pag_dep <=$quantidade_pg) {
+            echo "<a href ='index.php?pagina=$pag_dep'>$pag_dep </a>"; 
+        }
+    }
+    echo "<a href='index.php?pagina=$quantidade_pg'> Ultima</a>"; 
+
     ?>
-    <form method="post" action="processa.php">
-
-        <labe>RA:</labe>
-        <input type="text" name="ra" placeholder="Digite o número do RA"><br><br>
-
-        <labe>Nome:</labe>
-        <input type="text" name="nome" placeholder="Digite o nome completo"><br><br>
-
-        <labe>Idade:</labe>
-        <input type="text" name="idade" placeholder="Digite sua idade"><br><br>
-
-        <labe>Sexo:</labe>
-        <input type="radio" name="sexo" value="M" checked> M
-        <input type="radio" name="sexo" value="F"> F<br><br>
-
-        <labe>Endereço:</labe>
-        <input type="text" name="endereco" placeholder="Digite seu endereço"><br><br>
-
-        <labe>Nº:</labe>
-        <input type="text" name="numero" placeholder="Informe o número da casa"><br><br>
-
-        <labe>Complemento:</labe>
-        <input type="text" name="complemento" placeholder="Informe o complemento"><br><br>
-
-        <input type="submit" value="Cadastrar">
-    </form>
-
-    <script src="jquery-3.7.1.min.js"></script>
-    <script src="jquery.mask.js"></script>
 
 </body>
 

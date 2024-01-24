@@ -18,7 +18,7 @@ $resultado = mysqli_query($conexao, $result);
 
 if (mysqli_affected_rows($conexao)) {
     $_SESSION['msg'] = "<p style='color:green;'>Usuário editado com sucesso!</p>";
-    header("Location: listar.php");
+    header("Location: index.php");
 } else {
     $_SESSION['msg'] = "<p style='color:red;'>Não foi possivel editar cadastro.</p>";
     header("Location: editar.php?id=$id");

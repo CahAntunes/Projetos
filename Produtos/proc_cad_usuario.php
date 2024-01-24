@@ -19,5 +19,5 @@ if (mysqli_insert_id($conexao)) {
     header("Location: index.php");
 } else {
     $_SESSION['msg'] = "<p style='color:red;'>Usuário não foi cadastrado.</p>";
-    header("Location: index.php");
+    header("Location: cad_usuario.php");
 }
